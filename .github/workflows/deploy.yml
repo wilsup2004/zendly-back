@@ -30,12 +30,11 @@ jobs:
           ./mvnw clean package -DskipTests
 
       - name: Deploy to EC2
-        uses: appleboy/ssh-action@v1
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.AWS_HOST }}
           username: ${{ secrets.AWS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          debug: true
           script: |
             cd ~/zendly-back || git clone https://github.com/wilsup2004/zendly-back.git && cd zendly-back
             git pull origin main
