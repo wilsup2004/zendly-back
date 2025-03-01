@@ -37,6 +37,9 @@ jobs:
           ssh-keyscan -H ${{ secrets.AWS_HOST }} >> ~/.ssh/known_hosts
           cat ~/.ssh/known_hosts
           
+      - name: Test SSH Connection
+        run: ssh -vvv -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.AWS_USER }}@${{ secrets.AWS_HOST }} "echo Connected!"
+   
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
         with:
