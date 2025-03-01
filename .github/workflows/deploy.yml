@@ -29,6 +29,13 @@ jobs:
         run: |
           ./mvnw clean package -DskipTests
 
+      - name: Configure SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.AWS_HOST }} >> ~/.ssh/known_hosts
+    
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
         with:
