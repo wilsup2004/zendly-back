@@ -34,8 +34,7 @@ jobs:
         with:
           host: ${{ secrets.AWS_HOST }}
           username: ${{ secrets.AWS_USER }}
-          # key: ${{ secrets.SSH_PRIVATE_KEY }}
-          from_secret: SSH_PRIVATE_KEY
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ~/zendly-back || git clone https://github.com/wilsup2004/zendly-back.git && cd zendly-back
             git pull origin main
