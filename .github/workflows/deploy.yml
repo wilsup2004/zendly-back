@@ -22,9 +22,6 @@ jobs:
       - name: Debug SSH Key
         run: |
           cat ~/.ssh/id_rsa | awk '{print NR, $0}'
-          
-      - name: Test SSH Connection
-        run: ssh -vvv -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.AWS_USER }}@${{ secrets.AWS_HOST }} "echo Connected!"
    
       - name: Deploy to EC2
         run: |
