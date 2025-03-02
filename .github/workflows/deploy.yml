@@ -26,7 +26,7 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh ec2-user@${{ secrets.EC2_HOST }} << 'EOF'
-            cd /home/ec2-user/app
+            cd zendly-back
             git pull origin main
             mvn clean package
             kill $(lsof -t -i:8081) || true
