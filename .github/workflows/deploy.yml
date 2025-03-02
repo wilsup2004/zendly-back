@@ -15,14 +15,40 @@ jobs:
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo "-----BEGIN RSA PRIVATE KEY-----
+          MIIEpAIBAAKCAQEA1neeSf4t2FU7q2vc2MTICOVdqL9R88lIjec9sLQ4SidoGY40
+          XAsIlDnsCic/6+0sl4stohKfLzR3gT1OVfe+oZr96FZ093MPyw8vVoIUK0Woq82U
+          6tU+cChmgdcHr2vTMMkeAxt4t3Of5onfKjsZQkUGuqJS/yEAAIgxUN4cmV9ZVy/z
+          8U2rYk730fzPTH+7k302BOfgKOj74OHlNutgfRTd4jwZU0mTmWqHSwUmLh04KDLx
+          r/88xMZTwGANNTqdgcvEn8ykkDhU0HdYsmsKgAGsW0pJ9rZtkEYRdKFVMPT5aedC
+          aNHlNvwDhnSx06FGrpsNMQwwsMDD7WtFPIJCbQIDAQABAoIBAQCQ7kUJu7s/dlnc
+          fgfAdTq4yEeCwcef92YQfzQxNZjUg8zVeEPp74rcoEfilKOdy6lWv7cWz37DZ7Fa
+          pRNLBSDOFO+BEuv4TMlfb+ONkloO5AQYFdWM3I5VPPgIxkdrRHJzhXXCo83wKzLj
+          mEg3QbjQD9V8SjXMM4DM2zx4aaDqA0hEOcFL3LfbCba6rRyf2zZwfYcLK3r3laSp
+          Lt3Vmw3fT/xf2mqJRlgJN4Zu2k+4aR7tgh7VaoJ4dtURL1ju3zGL7GgHR1enYVGk
+          zlhwDdgBFpdNsXWLCMrvuGTs+PD38xL/WpaOBQapPe2Wf8Ddwz/jW2esNx57kAhy
+          8s+uLsABAoGBAPZy6miB8J+JumqFCn60T/zfoEaQQlE7xinU2+cXiX39OV2SUiLA
+          ifPEIJt2RiabxAY56UMt8NsbdZCkRfMGEle6kbGpNr2aLWPYMuh430BoH3U/7vmY
+          /qDZ7HBgDPDHeNMAgkL5gGZOzKzql2Il6ZiThoZE3sNRN5bEM4QAhVPdAoGBAN7H
+          Z4wkdi5MXPU6nLk2kaaWtQfSUep4I2WpIs6+f6UfIUKgD0Rsu1zInurei5Wo9M5J
+          GkH6mnOWHgB5TUfh4ok6ecYWIHOjlhRy5zqXqPfhO5mr9BTTXoQ/NaAf4A6sPHTq
+          +xFTyH9hISYHQW42koO1juoF5ToHOIF9l4392MfRAoGBAKpbKTnwiFpfpCK5sFWB
+          YsFT+8CLO6xXe1WzNAb8OCiFAEB0Qp6PJU0Bx+Bu03MgvVHoehvcB+ANjSjcxRWG
+          nutRpiB+7b4Gc1XPPvF/jCNDVmuANDsIzQp3WX8chhVybUy9z01olp8h3U2yI87O
+          kjjL0XPC65Fr9Ncc7NdUXNVpAoGAJMpbgFpZJgY4Z8s5LKElZpSG6vbBzm3uspA/
+          DlOJcvR0IrOaMdufCZCcJf+An8OaQiLycij3rtUAuWVO7OsR5UXB7IOk8lP2qgPb
+          yeJX5i/NDvDFy1aoykBCE+KPtvycs1ZHBjKG7vpUZhpWpOPgSF4Ibv9wPqgIneHm
+          0G02irECgYADwvkQC819GH78Ybo9uv+oxOfOzcIazZRxq8ShuirS2FSu5qUc3CcK
+          AOyGfztiIUhtvc8PLWu+Ep6hGNUKg1AYj4Fmn7c8RwWlfw4nI/q+M9jT4R+Oq0GM
+          nGySBzbE3zJTtPHl7IXrN0Bm+DI7TC22kbvip/KOKThHfHRP5iVnAA==
+          -----END RSA PRIVATE KEY-----" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
       - name: Configure SSH Key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r\t' > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.AWS_HOST }} >> ~/.ssh/known_hosts
           cat ~/.ssh/known_hosts
