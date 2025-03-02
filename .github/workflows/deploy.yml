@@ -22,14 +22,6 @@ jobs:
       - name: Debug SSH Key
         run: |
           cat ~/.ssh/id_rsa | awk '{print NR, $0}'
-
-      - name: Configure SSH Key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r\t' > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.AWS_HOST }} >> ~/.ssh/known_hosts
-          cat ~/.ssh/known_hosts
           
       - name: Test SSH Connection
         run: ssh -vvv -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.AWS_USER }}@${{ secrets.AWS_HOST }} "echo Connected!"
