@@ -21,6 +21,7 @@ jobs:
 
       - name: Build the application
         run: |
+           chmod +x ./mvnw
           ./mvnw clean package -DskipTests
 
       - name: Deploy to EC2
