@@ -33,6 +33,7 @@ jobs:
           script: |
             cd ~/zendly-back || git clone https://github.com/wilsup2004/zendly-back.git&& cd zendly-back
             git pull origin main
+            chmod +x mvnw
             ./mvnw clean package -DskipTests
             sudo docker stop spring-app || true
             sudo docker rm spring-app || true
