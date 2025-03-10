@@ -31,8 +31,8 @@ jobs:
           username: ${{ secrets.AWS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd ~/zendly-back || git clone https://github.com/wilsup2004/zendly-back.git&& cd zendly-back
-            git pull origin main
+            rm -rf zendly-back
+            git clone https://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@github.com/wilsup2004/zendly-back.git&& cd zendly-back
             chmod +x mvnw
             ./mvnw clean package -DskipTests
             sudo docker stop spring-app || true
