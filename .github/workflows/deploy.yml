@@ -31,11 +31,34 @@ jobs:
           username: ${{ secrets.AWS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            # Créer le dossier principal et les sous-dossiers s'ils n'existent pas
+            sudo mkdir -p /var/images/default
+            sudo mkdir -p /var/images/profile
+            sudo mkdir -p /var/images/colis
+            sudo chmod -R 777 /var/images
+            
+            # Supprimer l'ancien projet et récupérer le nouveau
             rm -rf zendly-back
             git clone https://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@github.com/wilsup2004/zendly-back.git&& cd zendly-back
+            
+            # Copier l'image par défaut dans /var/images/default/
+            sudo cp src/img/no_photo_default.jpeg /var/images/default/no_photo_default.jpeg
+            sudo chmod 777 /var/images/default/no_photo_default.jpeg
+
+            # Build du projet
             chmod +x mvnw
             ./mvnw clean package -DskipTests
+            
+            
+            # Arrêter et supprimer le conteneur existant
             sudo docker stop spring-app || true
             sudo docker rm spring-app || true
-            sudo docker run -d --name spring-app -p 8081:8081 -v ~/zendly-back:/app openjdk:17 java -jar /app/target/TradeApp-0.0.1-SNAPSHOT.jar
+            
+            # Lancer le conteneur avec le volume pour stocker les images
+            sudo docker run -d --name spring-app -p 8081:8081 \
+            -v ~/zendly-back:/app 
+            -v /var/images/default:/var/images/default \
+            -v /var/images/profile:/var/images/profile \
+            -v /var/images/colis:/var/images/colis \
+            \openjdk:17 java -jar /app/target/TradeApp-0.0.1-SNAPSHOT.jar
           debug: true
