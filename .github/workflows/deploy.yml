@@ -50,5 +50,6 @@ jobs:
             -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY }} \
             -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_KEY }} \
             -e AWS_REGION=eu-west-3 \
+            -v ~/zendly-back:/app \
             openjdk:17 java -jar /app/target/TradeApp-0.0.1-SNAPSHOT.jar
           debug: true
