@@ -56,9 +56,9 @@ jobs:
             
             # Lancer le conteneur avec le volume pour stocker les images
             sudo docker run -d --name spring-app -p 8081:8081 \
-            -v ~/zendly-back:/app 
             -v /var/images/default:/var/images/default \
             -v /var/images/profile:/var/images/profile \
             -v /var/images/colis:/var/images/colis \
-            \openjdk:17 java -jar /app/target/TradeApp-0.0.1-SNAPSHOT.jar
+             -v ~/zendly-back:/app \
+             openjdk:17 java -jar /app/target/TradeApp-0.0.1-SNAPSHOT.jar
           debug: true
